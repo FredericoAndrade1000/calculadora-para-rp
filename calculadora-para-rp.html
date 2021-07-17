@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Calculadora Para RP</title>
+		<style>
+        body{
+            background-color: #2D2B55;
+        }
+        h1{
+            margin-top: 40px;
+            text-align: center;
+        }
+        h2{
+            margin-top: 30px;
+        }
+        label{
+            font-size: 20px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        label input{
+            float: right;
+        }
+        h1, h2, h3, h4, label{
+            font-family: Arial;
+            font-weight: 200;
+            color: #BBB1FF;
+        }
+        .interface{
+            width: 80%;
+            margin: -10px auto 0 auto;
+            padding-left: 20px;
+            padding-bottom: 60px;
+            overflow: hidden;
+        }
+        .col3{
+            margin: auto;
+            overflow: hidden;
+        }
+        .textInput{
+            font-family: Arial;
+            margin: 0 auto;
+            font-size: 16px;
+            width: 200px;
+            height: 25px;
+            margin-bottom: 10px;
+        }
+        .button{
+            width: 208px;
+        }
+        .result::placeholder{
+            color: black;
+        }
+        .checkbox{
+            margin: 0 10px;
+            max-width: 50px;
+        }
+        .radio{
+            max-width: 50px;
+        }
+        .result{
+            margin: 25px 0 10px 0;
+        }
+        .col2{
+            background-color: #1E1C41;
+            border-radius: 20px;
+            padding-bottom: 25px;
+            padding-left: 25px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            width: 98%;
+        }
+        input:focus{
+            outline: none;
+        }
+        @media only screen and (max-device-width: 600px) {
+            .radio{
+                max-width: 50px;
+            }
+            h1{
+                font-size: 80px;
+            }
+            h2{
+                font-size: 40px;
+            }
+            .textInput{
+                font-family: Arial;
+                margin: 0 auto;
+                font-size: 50px;
+                width: 750px;
+                height: 100px;
+                margin-bottom: 40px;
+            }
+            label{
+                font-size: 50px;
+            }
+            .checkbox{
+                margin-left: 25px;
+                max-width: 50px;
+                height: 45px;
+            }
+            .radio{
+                margin-left: 25px;
+                margin-right: 30px;
+                height: 65px;
+            }
+            .result{
+                margin: 40px 0;
+            }
+            .col3, h1, h2, h3, h4{
+                margin-left: 15px;
+            }
+            .interface{
+                width: 92%;
+            }
+        }
+        </style>
+	</head>
+
+	<body>
+		<div class="interface">
+        <h1>Calculadora de Missão e Lançamento</h1> 
+        <div class="col2">
+        <h2>Custo de Lançamento</h2>
+        <h3>Peso (T):</h3>
+        <div class="col3">
+            <input class="textInput" id="mass" type="text" placeholder="">
+        </div>
+        <div class="col3">
+            <h3>É reutilizável?</h3>
+            <label for="">Sim<input class="textInput radio" type="radio" name="reutilizable" id="reutilizable-1"></label>
+            <label for="">Não<input class="textInput radio" type="radio" name="reutilizable" id="reutilizable-2" checked></label>
+        </div>
+        <div class="col3">
+            <input class="textInput result" id="result1" type="text" placeholder="Resultado" readonly>
+        </div>
+        <div class="col3">
+            <input class="textInput button" onclick="calc1()" type="button" value="Calcular">
+        </div>
+        </div>
+        <div class="col2">
+        <h2>Recompensa por Missão</h2>
+        <h3>Custo de Lançamento:</h3>
+        <div class="col3">
+            <input class="textInput" id="cost" type="text" placeholder="">
+        </div>
+        <h3>Dificuldade:</h3>
+        <div class="col3 radioCol">
+            <label for="">Fácil<input class="textInput radio" type="radio" name="difficult1" id="difficult-1-1" checked></label>
+            <label for="">Moderado<input class="textInput radio" type="radio" name="difficult1" id="difficult-1-2"></label>
+            <label for="">Difícil<input class="textInput radio" type="radio" name="difficult1" id="difficult-1-3"</label>
+        </div>
+        <div class="col3">
+            <input class="textInput result" id="result2" type="text" placeholder="Resultado" readonly>
+        </div>
+        <div class="col3">
+            <input class="textInput button" onclick="calc2()"  type="button" value="Calcular">
+        </div>
+        </div>
+        <div class="col2">
+        <h2>Recompensa para Criadores de Missão</h2>
+        <h3>Número de Agências que concluíram:</h3>
+        <div class="col3">
+            <input class="textInput" id="agency" type="text" placeholder="">
+        </div>
+        <h3>Dificuldade:</h3>
+        <div class="col3 radioCol">
+            <label for="">Fácil<input class="textInput radio" type="radio" name="difficult2" id="difficult-2-1" checked></label>
+            <label for="">Moderado<input class="textInput radio" type="radio" name="difficult2" id="difficult-2-2"></label>
+            <label for="">Difícil<input class="textInput radio" type="radio" name="difficult2" id="difficult-2-3"</label>
+        </div>
+        <div class="col3">
+            <input class="textInput result" id="result3" type="text" placeholder="Resultado" readonly>
+        </div>
+        <div class="col3">
+            <input class="textInput button" onclick="calc3()" type="button" id="calc3" value="Calcular">
+        </div>
+        </div>
+        <h4>Destinado ao servidor Frederico Andrade - Spaceflight Simulator</h4>
+        <h4>Versão 1.4</h4>
+	</body>
+    <script>
+        webView.getSettings().setJavaScriptEnabled(true);
+
+        document.getElementById("calc3").onclick = function(){calc3}
+        function calc1(){
+            if (document.getElementById("reutilizable-1").checked){
+                mass = parseInt(document.getElementById("mass").value)
+                mass *= 130
+                document.getElementById("result1").value = mass
+                document.getElementById("cost").value = mass
+            }
+            else{
+                mass = parseInt(document.getElementById("mass").value)
+                mass *= 200
+                document.getElementById("result1").value = mass
+                document.getElementById("cost").value = mass
+            }
+        }
+        function calc2(){
+            cost = parseInt(document.getElementById("cost").value)
+            if (document.getElementById("difficult-1-1").checked){
+                difficult = 1
+            }
+            if (document.getElementById("difficult-1-2").checked){
+                difficult = 2
+            }
+            if (document.getElementById("difficult-1-3").checked){
+                difficult = 3
+            }
+            document.getElementById("result2").value = difficult**2*100000 - cost
+
+        }
+        function calc3(){
+            if (document.getElementById("difficult-2-1").checked){
+                difficult = 1
+            }
+            if (document.getElementById("difficult-2-2").checked){
+                difficult = 2
+            }
+            if (document.getElementById("difficult-2-3").checked){
+                difficult = 3
+            }
+            agency = parseInt(document.getElementById("agency").value)
+            document.getElementById("result3").value = difficult**2*agency*100000
+        }
+    </script>
+</html>
